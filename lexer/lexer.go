@@ -2,6 +2,7 @@ package lexer
 
 import "github.com/digyx/monkey/token"
 
+// Lexer - Tokenizer node structure
 type Lexer struct {
 	input        string
 	position     int  // Points to current char
@@ -9,14 +10,14 @@ type Lexer struct {
 	ch           byte // Current character
 }
 
-// Initializes a token
+// New - Initializes and returns a new token
 func New(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar()
 	return l
 }
 
-// Return the token at the current position
+// NextToken - Return the next token
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
@@ -127,15 +128,15 @@ func (l *Lexer) readChar() {
 	}
 
 	l.position = l.readPosition
-	l.readPosition += 1
+	l.readPosition++
 }
 
 func (l *Lexer) peekChar() byte {
 	if l.position >= len(l.input) {
 		return 0
-	} else {
-		return l.input[l.readPosition]
 	}
+
+	return l.input[l.readPosition]
 }
 
 // Helper functions
